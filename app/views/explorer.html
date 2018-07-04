@@ -1,0 +1,56 @@
+<button style="float:right;" ng-class="{active: status==true, disabled: status==false }" ng-click="showQueries()" type="button" class="btn btn-primary btn-xs btn-success ">Queries!</button>
+<div class="form-group">
+  <div class=container>
+    </p>Escriba aqui la instancia que desea explorar</p>
+    <input type="text" class="form-control" ng-model="inputText">
+    <button style="margin-top: 10px;" ng-click="change()" type="button" class="btn btn-primary btn-xl btn-success ">Consultar</button>
+  </div>
+</div>
+<div class="alert alert-info" ng-if="!showTable">
+  <p>{{message}}</p>
+</div>
+
+<div ng-repeat="data in results" class="table-responsive">
+  <table class="table table-striped table-bordered table-hover" ng-if="showTable">
+    <thead>
+      <tr>
+        <th>Resultado para consulta: "{{data.search}}"</th>
+        <!-- <th>Predicado</th>
+          <th>Objeto</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr dir-paginate="result in data | itemsPerPage: 5">
+        <td ng-click=showGraph(result.a.value)>{{result.a.value}}</td>
+        <!-- <td>{{result.b.value}}</td>
+          <td>{{result.c.value}}</td> -->
+      </tr>
+    </tbody>
+  </table>
+  <dir-pagination-controls></dir-pagination-controls>
+</div>
+
+<div class="container">
+  <svg style="width:960px; height:800px" d3graph data="sujeto" ng-if="showD3"></svg>
+</div>
+
+<style type="text/css">
+  .node rect {
+    cursor: pointer;
+    fill: #fff;
+    fill-opacity: .5;
+    stroke: #3182bd;
+    stroke-width: 1.5px;
+  }
+
+  .node text {
+    font: 10px sans-serif;
+    pointer-events: none;
+  }
+
+  path.link {
+    fill: none;
+    stroke: #9ecae1;
+    stroke-width: 1.5px;
+  }
+</style>
